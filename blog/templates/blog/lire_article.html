@@ -1,0 +1,47 @@
+{% extends "blog/base.html" %}
+
+{% block title %}{{ article.titre }}{% endblock %}
+
+{% block content %}
+
+	<p>
+		<a href="{% url 'accueil' %}">Retour à la liste des articles</a>
+	</p>
+
+	<h2 class="titre-article">{{ article.titre }}</h2>
+	<p class="infos-article">Par {{ article.auteur }}, le {{ article.date }}</p>
+
+	<div class="contenu-article">
+		{{ article.contenu|safe }}
+	</div>
+
+	<h3 class="titre-comments">Commentaires</h3>
+
+	<h4>Poster votre propre commentaire</h4>
+	<form method="post" action="" class="pure-form">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<p style="text-align:center">
+			<input class="pure-button pure-button-primary" type="submit" />
+		</p>
+	</form>
+
+	<div class="clear"></div>
+
+	
+	<div class="commentaire">
+		{% if renvoi %}Votre commentaire a été rajouté avec succès !{% endif %}
+		
+		{% for comment in comments %}
+			<p>{{ comment.pseudo }}, le {{ comment.date|date:"DATE_FORMAT" }}</p>
+			<p>
+				{% if comment.is_visible %}
+					{{ comment.contenu }}
+				{% else %}
+					<i>Suite à de nombreuses plaintes, ce commentaire a été modéré</i>
+				{% endif %}
+			</p>
+		{% endfor %}
+	</div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+<head>
+    <title>{% block title %}Mon blog{% endblock %} - Crêpes bretonnes</title>
+    
+    <link rel="stylesheet" href="{% static 'blog/styles.css' %}" />
+</head>
+
+<body>
+    <header>
+    	<aside>
+        	<a href="{% url 'admin:index' %}">Admin</a>
+        </aside>
+
+        <h1>Crêpes-bretonnes.com</h1>
+    </header>
+
+    <div class="container">
+    	{% block content %}{% endblock %}
+    </div>
+            
+    <footer>
+        Mon super blog - Powered by Django
+    </footer>
+</body>
+</html>
